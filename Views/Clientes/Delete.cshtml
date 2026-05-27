@@ -1,0 +1,16 @@
+@model Cliente
+@{
+    ViewData["Title"] = "Eliminar cliente";
+}
+<section class="card">
+    <h2>Eliminar cliente</h2>
+    <p>¿Está seguro de eliminar a <strong>@Model.Nombre @Model.Apellido</strong>?</p>
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <div class="actions">
+            <button type="submit" class="danger-btn">Sí, eliminar con POST</button>
+            <a asp-action="Index">Cancelar</a>
+        </div>
+    </form>
+</section>

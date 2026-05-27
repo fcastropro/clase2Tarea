@@ -1,0 +1,53 @@
+@model IEnumerable<Cliente>
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+@if (TempData["Mensaje"] is not null)
+{
+    <div class="alert">@TempData["Mensaje"]</div>
+}
+
+<section class="card">
+    <div class="actions">
+        <a class="btn" asp-action="Create">+ Nuevo cliente</a>
+    </div>
+
+    <form asp-action="Index" method="get" class="search">
+        <input type="text" name="busqueda" value="@ViewBag.Busqueda" placeholder="Buscar por cédula, nombre, apellido o correo" />
+        <button type="submit">Buscar con GET</button>
+        <a asp-action="Index">Limpiar</a>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cédula</th>
+                <th>Cliente</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Fecha registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Cedula</td>
+                <td>@item.Nombre @item.Apellido</td>
+                <td>@item.Correo</td>
+                <td>@item.Telefono</td>
+                <td>@item.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
+                <td class="table-actions">
+                    <a asp-action="Details" asp-route-id="@item.Id">Ver</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                    <a class="danger" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>
